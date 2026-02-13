@@ -28,11 +28,32 @@ if(isset($_POST['btn_reg'])){
     <?php else: ?>    
     <form action="register.php" method="POST">
         <input type="text" name="username" id="username" placeholder="Preferred username" required>
+
         <input type="text" name="realname" id="realname" placeholder="Your real name"required>
         <input type="email" name="mail" id="mail" placeholder="Your email adress" required>
-        <input type="password" name="password" id="password" placeholder="Password (min 14 chars)" required>
+        <input type="password" name="password" id="password" placeholder="Password (min 14 chars)" required  pattern=".{14,}">
         <input type="submit" name="btn_reg" value="Create user">
     </form>
     <?php endif; ?>
 </body>
 </html>
+<script>
+    //validate if username is taken
+    const username=document.getElementById("username");
+    names=[
+        <?php
+            $sql="SELECT username FROM tbl_user";
+            $result=mysqli_query($conn, $sql);
+            while($row=mysqli_fetch_assoc($result)): ?>
+                "<?=$row['username']?>",
+        <?php endwhile; ?>
+    ]
+    username.addEventListener("input", function(){
+        if(names.includes(username.value)){
+            username.classList.add("invalid");
+        }else{
+            username.classList.remove("invalid");
+        }
+    });
+    
+</script>
