@@ -8,6 +8,7 @@ if(isset($_GET['del'])){
     $id=intval($_GET['del']);
     $sql="DELETE FROM tbl_user WHERE id=$id";
     $result=mysqli_query($conn, $sql);
+    header("Location: useradmin.php");
 }
 if(isset($_GET['level'])){
     $id=intval($_GET['level']);
@@ -18,6 +19,20 @@ if(isset($_GET['level'])){
     $newlevel=$initlevel-100;
     $sql="UPDATE tbl_user SET userlevel=$newlevel WHERE id=$id";
     $result=mysqli_query($conn,$sql);
+    header("Location: useradmin.php");
+}
+if(isset($_POST['btn_edit'])){
+    $id=intval($_POST['id']);
+    $username=$_POST['username'];
+    $password=$_POST['password'];
+    $userlevel=intval($_POST['userlevel']);
+    $lastlogin=$_POST['lastlogin'];
+    $realname=$_POST['realname'];
+    $mail=$_POST['mail'];
+    $created=$_POST['created'];
+    $sql="UPDATE tbl_user SET id=$id, username='$username', password='$password', userlevel=$userlevel, lastlogin='$lastlogin', realname='$realname', mail='$mail', created='$created' WHERE id=$id";
+    $result=mysqli_query($conn, $sql);
+    header("Location: useradmin.php");
 }
 
 ?>
@@ -34,6 +49,31 @@ if(isset($_GET['level'])){
     </header>
     <?php require_once("_nav.php"); ?>
     <main>
+        <?php  if(isset($_GET['edit'])): ?>
+            <?php
+                $id=intval($_GET['edit']);
+                $sql="SELECT * FROM tbl_user WHERE id=$id";
+                $result=mysqli_query($conn, $sql);
+                $user_data=mysqli_fetch_assoc($result);
+
+            ?>
+        <form action="useradmin.php" method="POST">
+            <input type="hidden" name="id" value="<?=$id?>">
+            <input type="hidden" name="username" value="<?=$user_data['username']?>">
+            <input type="hidden" name="password" value="<?=$user_data['password']?>">
+            <input type="hidden" name="created" value="<?=$user_data['created']?>">
+            <div class="user_data"><?=$id?>&nbsp;&nbsp;<?=$user_data['username']?><br><?=$user_data['password']?><br><?=$user_data['created']?></div>
+            <label for="realname">Real name:</label>
+            <input type="text" name="realname" id="realname" value="<?=$user_data['realname']?>">
+            <label for="mail">Email:</label>
+            <input type="email" name="mail" id="mail" value="<?=$user_data['mail']?>">
+            <label for="userlevel">User level: (10-300:user, 301-999:power user, 1000-9999:admin, >10000:superuser)</label>
+            <input type="number" name="userlevel" id="userlevel" value="<?=$user_data['userlevel']?>">
+            <label for="lastlogin">Users last log in:</label>
+            <input type="datetime" name="lastlogin" id="lastlogin" value="<?=$user_data['lastlogin']?>">
+            <input type="submit" name="btn_edit" value="Update user">
+        </form>
+        <?php else: ?>
         <?php
             $sql="SELECT * FROM tbl_user ORDER BY userlevel DESC";
             $result=mysqli_query($conn, $sql);
@@ -60,6 +100,7 @@ if(isset($_GET['level'])){
                     </div>
                 </details>
             <?php endwhile; ?>
+            <?php endif; ?>
     </main>
     <?php require_once("_footer.php"); ?>
 </body>
