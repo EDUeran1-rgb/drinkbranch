@@ -34,7 +34,7 @@ if(isset($_POST['btn_reg'])){
         <label for="mail">Email</label>
         <input type="email" name="mail" id="mail" placeholder="Your email adress" required>
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" placeholder="Password (min 14 chars)" required  pattern=".{14,}">
+        <input type="text" name="password" id="password" placeholder="Password (min 14 chars)" required  pattern=".{14,}">
         <input type="submit" name="btn_reg" value="Create user">
     </form>
     <?php endif; ?>
@@ -54,8 +54,12 @@ if(isset($_POST['btn_reg'])){
     username.addEventListener("input", function(){
         if(names.includes(username.value)){
             username.setCustomValidity("Username is already taken");
+            username.reportValidity();
+
         }else{
             username.setCustomValidity("");
+            username.reportValidity();
+
         }
     });
     

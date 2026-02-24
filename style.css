@@ -70,7 +70,7 @@ dialog{
 }
 dialog form{
     padding: 2rem;
-    background: rgb(255, 253, 247);
+    background: rgba(24, 24, 24, 0.151);
     width:100%;
     height:100%;
     display:grid;
@@ -160,7 +160,14 @@ textarea {
     padding: 0.8rem;
     border: 1px solid var(--formborder);
     border-radius: .3rem;
+    &:focus {
+        outline: none;
+        border: 1px solid var(--formborder);
+    }
+    &:invalid {
+        border: 2px solid red;
 }
+
 
 label {
     position: relative;
