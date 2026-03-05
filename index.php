@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php require_once("asset.php"); ?>
+<?php if(isset($_POST['userrating'])):rateDrink(intval($_POST['userrating']), intval($_POST['drinkid']));header("Location: index.php"); endif; ?>
 <?php
 $mess="";
 if(isset($_SESSION['mess'])){
@@ -31,7 +32,7 @@ if(isset($_SESSION['mess'])){
     $result=mysqli_query($conn, $sql);
 ?>
 <?php while($row=mysqli_fetch_assoc($result)): ?>
-<?php if(isset($_POST['userrating'])):rateDrink(intval($_POST['userrating']), intval($_POST['drinkid']));header("Location: index.php"); endif; ?>
+
 <details>
     <summary>
         <div>
