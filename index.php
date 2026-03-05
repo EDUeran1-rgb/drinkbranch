@@ -31,7 +31,7 @@ if(isset($_SESSION['mess'])){
     $result=mysqli_query($conn, $sql);
 ?>
 <?php while($row=mysqli_fetch_assoc($result)): ?>
-<?php if(isset($_POST['userrating'])):rateDrink(intval($_POST['userrating']), $row['id']);header("Location: index.php"); endif; ?>
+<?php if(isset($_POST['userrating'])):rateDrink(intval($_POST['userrating']), intval($_POST['drinkid']));header("Location: index.php"); endif; ?>
 <details>
     <summary>
         <div>
@@ -39,7 +39,7 @@ if(isset($_SESSION['mess'])){
             <h4><?=$row['description']?></h4></div> 
             
             <div class="filler"></div>  
-            <div>Rated: <?=showRating($row['id'])?></div> 
+            <div>Rated: <?=showRating($row['id'])?> </div> 
             <?php if(islevel(10)) { ?>
                 <div id="ratearea">
                     <?php if(!hasrated($row['id'])){ 

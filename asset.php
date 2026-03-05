@@ -20,7 +20,7 @@ function hasrated($drinkid){
 
 
 
-function rateDrink($userrating=1, $drinkid){
+function rateDrink($userrating, $drinkid){
     $userid=$_SESSION['id'];
     global $conn;
     if (!hasrated($drinkid)) {
