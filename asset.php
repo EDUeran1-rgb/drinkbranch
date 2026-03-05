@@ -6,6 +6,34 @@ $db_pass="";
 $db_name="drink";
 $conn=mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
+function hasrated($drinkid){
+    global $conn;
+    $userid=$_SESSION['id'];
+    $sql="SELECT * FROM tbl_reviews WHERE userid=$userid AND drinkid=$drinkid";
+    $result=mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result)>0){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+
+function rateDrink($userrating=1, $drinkid){
+    $userid=$_SESSION['id'];
+    global $conn;
+    if (!hasrated($drinkid)) {
+        $sql="INSERT INTO tbl_reviews (userid, score, drinkid) VALUES ($userid, $userrating, $drinkid)";
+        
+    } else {
+        $sql="UPDATE tbl_reviews SET score=$userrating WHERE userid=$userid AND drinkid=$drinkid"; 
+        
+    }
+    mysqli_query($conn, $sql);
+    
+}
+
 function isLevel($level){
     if(isset($_SESSION['level'])){
         if(intval($_SESSION['level'])>=$level){
@@ -35,13 +63,41 @@ function isUserTaken($username){
         return false;
     }
 }
-function showRating($number){
-    $number=intval(round($number));
-    $retStr="";
-    for($vdo=0;$vdo<$number;$vdo++){
-        $retStr.="🫒";
+function showpersonalscore($drinkid){
+    global $conn;
+    $userid=$_SESSION['id'];
+    $sql="SELECT score FROM tbl_reviews WHERE userid=$userid AND drinkid=$drinkid";
+    $result=mysqli_query($conn, $sql);
+    if(mysqli_num_rows($result)>0){
+        $row=mysqli_fetch_assoc($result);
+        $retStr="";
+        for($vdo=0;$vdo<$row['score'];$vdo++){
+            $retStr.="🫒";
+        }
+        return $retStr;
+    }else{
+        return "Not rated yet";
     }
-    return $retStr;
+}
+
+function showRating($drinkid){
+    global $conn;
+    if (mysqli_num_rows(mysqli_query($conn, "SELECT * FROM tbl_reviews WHERE drinkid='$drinkid' LIMIT 1")) > 0) {
+        $sql="SELECT AVG(score) as rating FROM tbl_reviews WHERE drinkid='$drinkid'";
+        $result=mysqli_query($conn, $sql);
+        $row=mysqli_fetch_assoc($result);
+        $rating=$row['rating'];
+        $sql="UPDATE tbl_drinks SET rating=$rating WHERE id=$drinkid";
+        mysqli_query($conn, $sql);
+        $number=intval(round($row['rating']));
+        $retStr="";
+        for($vdo=0;$vdo<$number;$vdo++){
+            $retStr.="🫒";
+        }
+        return $retStr;
+    } else {
+        return "Not rated yet";
+    }
 }
 function isAlcoholic($value){
     if($value){

@@ -217,3 +217,28 @@ a.addDrink{
         color:#fff;
     }
 }
+.rate{
+    background: #0002;
+    border:1px solid #0006;
+    border-radius:10px;
+    width:fit-content;
+    font:bold 1.4rem system-ui;
+    color:#000;
+    &:hover{
+        background: #2266;
+        color:#fff;
+    }
+}
+.rate-form{
+    position: relative;
+    padding: none;
+    background: none;
+    border-radius: 0rem;
+    margin-left: none;
+    margin-right: none;
+    width:fit-content;
+    display:flex;
+    flex-direction: row;
+    gap:.3rem;
+    height:fit-content;
+}

@@ -23,19 +23,43 @@ if(isset($_SESSION['mess'])){
 <?php require_once("_nav.php"); ?>
     <main>
 <h1 class="message"><?=$mess;?></h1>
-<a href="add_drink.php" class="addDrink">Add new drink!</a>
+<?php if (isLevel(10)) { ?>
+    <a href="add_drink.php" class="addDrink">Add new drink!</a>
+<?php } ?>
 <?php
     $sql="SELECT * FROM tbl_drinks ORDER BY rating DESC"; 
     $result=mysqli_query($conn, $sql);
 ?>
 <?php while($row=mysqli_fetch_assoc($result)): ?>
+<?php if(isset($_POST['userrating'])):rateDrink(intval($_POST['userrating']), $row['id']);header("Location: index.php"); endif; ?>
 <details>
     <summary>
         <div>
             <h2><?=$row['drinkname']?>&nbsp;&nbsp;<span><?=isAlcoholic(intval($row['alcoholic']))?></span></h2>
             <h4><?=$row['description']?></h4></div> 
+            
             <div class="filler"></div>  
-            <div>Rated: <?=showRating($row['rating'])?></div>   
+            <div>Rated: <?=showRating($row['id'])?></div> 
+            <?php if(islevel(10)) { ?>
+                <div id="ratearea">
+                    <?php if(!hasrated($row['id'])){ 
+                        echo "<p>Rate this drink:</p>";
+                    }else{ 
+                        echo "<p>You have rated this drink:" . showpersonalscore($row['id']) . ".<br> Update your rating:</p>";
+                     } ?>
+                    
+                    <form class="rate-form" action="index.php" method="POST">
+                        <input type="hidden" name="drinkid" value="<?=$row['id']?>">
+                        <button  name="userrating" value="1" class="rate">1</button>
+                        <button  name="userrating" value="2" class="rate">2</button>
+                        <button  name="userrating" value="3" class="rate">3</button>
+                        <button  name="userrating" value="4" class="rate">4</button>
+                        <button  name="userrating" value="5" class="rate">5</button>
+                    </form>
+                    
+
+                </div>
+            <?php } ?>
     </summary>
     <div class="ingredients">
         <pre><?=$row['ingredients']?></pre>
