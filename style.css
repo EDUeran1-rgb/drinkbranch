@@ -43,6 +43,18 @@ nav{
     & a:hover{
         background: #0006;
     }
+    & .loginbttn{
+        background: #0003;
+        border: none;
+        color:white;
+        font-weight: bold;
+        padding: .2rem .3rem;
+        border-radius: .2rem;
+        background:#0003;
+            &:hover{
+                background: #0006;
+            }
+    }
 }
 main{
     flex-grow: 5;
