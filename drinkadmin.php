@@ -9,12 +9,13 @@ if(isset($_GET['del'])){
     $id=intval($_GET['del']);
     $sql="DELETE FROM tbl_drinks WHERE id=$id";
     $result=mysqli_query($conn, $sql);
+    $sql="DELETE FROM tbl_reviews WHERE drinkid=$id";
+    $result=mysqli_query($conn, $sql);
     header("Location: drinkadmin.php");
 }
 
 if(isset($_POST['btn_edit'])){
     $id=intval($_POST['id']);
-    $rating=floatval($_POST['rating']);
     $drink=htmlentities($_POST['drinkname']);
     $desc=htmlentities($_POST['desc']);
     $alc=intval($_POST['alcoholic']);
@@ -55,8 +56,6 @@ if(isset($_POST['btn_edit'])){
             <input type="text" name="drinkname" id="drinkname" value="<?=$row['drinkname']?>">
             <label for="desc">Description:</label>
             <input type="text" name="desc" id="desc" value="<?=$row['description']?>">
-            <label for="rating">Rating:</label>
-            <input type="number" name="rating" id="rating" inputmode="decimal" value="<?=$row['rating']?>">
             <label for="alcoholic">Is there alcohol in this drink?</label>
             <select name="alcoholic">
                 <option value="0" <?php if($row['alcoholic']==0){echo "selected";} ?> >Not alcoholic</option>

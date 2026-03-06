@@ -135,6 +135,7 @@ details{
     width:50%;
     margin-left: auto;
     margin-right: auto;
+    transition: all 0.05s ease-in-out;
 }
 details .userdetails{
     display:flex;
