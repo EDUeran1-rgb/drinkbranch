@@ -44,13 +44,16 @@ nav{
         background: #0006;
     }
     & .loginbttn{
+        padding:0rem;
+        height :100%;
+        margin:0rem;
+        text-decoration: none;
+        font-weight: bold;
+        color:white;
+        border-radius: .2rem;
+        /*padding: .2rem .3rem;*/
         background: #0003;
         border: none;
-        color:white;
-        font-weight: bold;
-        padding: .2rem .3rem;
-        border-radius: .2rem;
-        background:#0003;
             &:hover{
                 background: #0006;
             }
