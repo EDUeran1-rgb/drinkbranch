@@ -22,6 +22,11 @@ if(isset($_POST['btn_reg'])){
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <h1>Register</h1>
+    </header>
+    <?php require_once("_nav.php"); ?>
+    <main>
     <?php if(isset($_GET['reg'])): ?>
             <h1>Thank you for registering a user!</h1>
             <a href="index.php">Go to homepage</a>
@@ -38,6 +43,8 @@ if(isset($_POST['btn_reg'])){
         <input type="submit" name="btn_reg" value="Create user">
     </form>
     <?php endif; ?>
+    </main>
+    <?php require_once("_footer.php"); ?>
 </body>
 </html>
 <script>

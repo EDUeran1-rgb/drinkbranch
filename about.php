@@ -15,5 +15,14 @@
         
     </main>
 <?php require_once("_footer.php"); ?>
+<dialog id="login" popover>
+        <form action="_login.php" method="POST">
+            <label for="user">Username</label>
+            <input type="text" name="user" placeholder="Username" required>
+            <label for="pass">Password</label>
+            <input type="password" name="pass" placeholder="Password" required>
+            <input type="submit" name="btn_login" value="Log in">
+        </form>
+    </dialog>
 </body>
 </html>
