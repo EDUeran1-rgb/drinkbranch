@@ -6,10 +6,10 @@
             <a href="useradmin.php">User Admin</a>
             <a href="drinkadmin.php">Drink Admin</a>
         <?php endif; ?>
-        <?php if(!isLevel(10)):?>
+        <?php if(!isLevel(10)){?>
         <a href="register.php">Register</a>
         <button class="loginbttn" popovertarget="login">Login</button>
-        <?php else: ?>
+        <?php }else{ ?>
         <a href="_login.php?logout=1">Logout</a>    
-        <?php endif; ?>
+        <?php } ?>
     </nav>
