@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <?php require_once("asset.php"); ?>
 <?php
-/*
 if(!isLevel(1000)){ 
     header("Location: index.php");
-} */
+}
 if(isset($_GET['del'])){
     $id=intval($_GET['del']);
     $sql="DELETE FROM tbl_drinks WHERE id=$id";
