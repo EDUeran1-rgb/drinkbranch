@@ -40,7 +40,7 @@ if(isset($_SESSION['mess'])){
             <h4><?=$row['description']?></h4></div> 
             
             <div class="filler"></div>  
-            <div id="ratingdiv">Rated: <?=showRating($row['id'])?> </div> 
+            <div class="ratingdiv">Rated: <?=showRating($row['id'])?> </div> 
             <?php if(islevel(10)) { ?>
                 <div id="ratearea">
                     <?php if(!hasrated($row['id'])){ 
