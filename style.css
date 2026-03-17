@@ -59,6 +59,7 @@ nav{
             }
     }
 }
+/*.userinfo{}*/
 main{
     flex-grow: 5;
     display:flex;

@@ -96,7 +96,7 @@ function showRating($drinkid){
         }
         return $retStr;
     } else {
-        return "Not rated yet";
+        return false;
     }
 }
 function isAlcoholic($value){
@@ -114,5 +114,17 @@ function isSelected($val){
         return false;
     }
 }
-
+function getUsername(){
+    global $conn;
+    $userid=$_SESSION['id'];
+    $sql="SELECT username FROM tbl_user WHERE id=$userid";
+    $result=mysqli_query($conn, $sql);
+    $row=mysqli_fetch_assoc($result);
+    if(mysqli_num_rows($result)>0){
+        
+        return $row['username'];
+    }else{
+        return "Guest";
+    }
+}
 ?>

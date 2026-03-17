@@ -39,8 +39,12 @@ if(isset($_SESSION['mess'])){
             <h2><?=$row['drinkname']?>&nbsp;&nbsp;<span><?=isAlcoholic(intval($row['alcoholic']))?></span></h2>
             <h4><?=$row['description']?></h4></div> 
             
-            <div class="filler"></div>  
-            <div class="ratingdiv">Rated: <?=showRating($row['id'])?> </div> 
+            <div class="filler"></div>
+            <?php if (showRating($row['id']) !== false) { ?>
+                <div class="ratingdiv">Rated: <?=showRating($row['id'])?> </div> 
+            <?php }else { ?>
+                <div class="ratingdiv">Not rated yet</div>
+            <?php } ?>
             <?php if(islevel(10)) { ?>
                 <div id="ratearea">
                     <?php if(!hasrated($row['id'])){ 

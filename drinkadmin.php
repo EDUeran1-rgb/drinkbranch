@@ -77,8 +77,13 @@ if(isset($_POST['btn_edit'])){
         <div>
             <h2><?=$row['drinkname']?>&nbsp;&nbsp;<span><?=isAlcoholic(intval($row['alcoholic']))?></span></h2>
             <h4><?=$row['description']?></h4></div> 
-            <div class="filler"></div>  
-            <div>Rated: <?=showRating($row['rating'])?>&nbsp;&nbsp;<a href="drinkadmin.php?edit=<?=$row['id']?>">🖋️</a>&nbsp;&nbsp;<a href="drinkadmin.php?del=<?=$row['id']?>">❌</a></div>   
+            <div class="filler"></div>
+            <?php if (showRating($row['id']) !== false) {
+                $rating2 = "Rated:" . showRating($row['id']);
+            }else {
+                $rating2 = "Not rated yet";
+             } ?>  
+            <div> <?=$rating2?> &nbsp;&nbsp;<a href="drinkadmin.php?edit=<?=$row['id']?>">🖋️</a>&nbsp;&nbsp;<a href="drinkadmin.php?del=<?=$row['id']?>">❌</a></div>   
     </summary>
     <div class="ingredients">
         <pre><?=$row['ingredients']?></pre>
